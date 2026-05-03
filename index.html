@@ -489,9 +489,11 @@ for (let i = 1; i <= 24; i++) {
   p.setAttribute('role', 'button');
   p.setAttribute('aria-label', `Open letter for memory ${i}`);
   p.innerHTML = `
-    <div class="photo-wrap">
-      <img class="memory-photo" src="picture${i}.JPG" alt="Memory ${i}"
-        onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+      <div class="photo-wrap">
+      <img class="memory-photo" 
+           src="picture${i}.JPG" 
+           alt="Memory ${i}"
+           onerror="if(this.src.endsWith('.JPG')){this.src='picture${i}.jpeg'}else if(this.src.endsWith('.jpeg')){this.src='picture${i}.jpg'}else{this.style.display='none';this.nextElementSibling.style.display='flex';}" />
       <div class="photo-placeholder">
         <span>📷</span><p>picture${i}.JPG</p>
       </div>
