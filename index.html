@@ -491,9 +491,11 @@ for (let i = 1; i <= 24; i++) {
   p.innerHTML = `
       <div class="photo-wrap">
         <img class="memory-photo" 
-             src="./picture${i}.JPG" 
+             src="./picture${i}.JPG?update=1" 
              alt="Memory ${i}"
-             onerror="if(this.src.includes('.JPG')){this.src='./picture${i}.JPEG'}else if(this.src.includes('.JPEG')){this.src='./picture${i}.jpg'}else{this.style.display='none';this.nextElementSibling.style.display='flex';}">
+             crossorigin="anonymous"
+             loading="eager"
+             onerror="if(!this.src.includes('retry')){this.src='./picture${i}.JPG?retry=true';}else{this.style.display='none';this.nextElementSibling.style.display='flex';}">
         
         <div class="photo-placeholder">
           <span>📷</span>
