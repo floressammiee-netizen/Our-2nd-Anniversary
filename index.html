@@ -490,10 +490,10 @@ for (let i = 1; i <= 24; i++) {
   p.setAttribute('aria-label', `Open letter for memory ${i}`);
   p.innerHTML = `
       <div class="photo-wrap">
-      <img class="memory-photo" 
-           src="./picture${i}.JPG?v=2" 
-           alt="Memory ${i}"
-           onerror="if(this.src.includes('.JPG')){this.src='./picture${i}.jpeg?v=2'}else if(this.src.includes('.jpeg')){this.src='./picture${i}.jpg?v=2'}else{this.style.display='none';this.nextElementSibling.style.display='flex';}" />
+        <img class="memory-photo" 
+     src="./picture${i}.JPG" 
+     alt="Memory ${i}"
+     onerror="if(this.src.includes('.JPG')){this.src='./picture${i}.JPEG'}else if(this.src.includes('.JPEG')){this.src='./picture${i}.jpg'}else{this.style.display='none';this.nextElementSibling.style.display='flex';}">
       <div class="photo-placeholder">
         <span>📷</span><p>picture${i}.JPG</p>
       </div>
