@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>💜 2 Years & 24 Memories 💛</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&family=Dancing+Script:wght@600&display=swap" rel="stylesheet" />
   <style>
     :root {
@@ -272,7 +273,7 @@
   <section class="songs-section">
     <div class="sec-title">
       <h2>🎵 Our <span class="acc">Songs</span></h2>
-      <p> Songs that remind me of you! 🎧</p>
+      <p>Songs that remind me of you! 🎧</p>
     </div>
     <div class="songs-grid">
 
@@ -284,16 +285,7 @@
             <p>Goo Goo Dolls</p>
           </div>
         </div>
-        <!--
-          HOW TO GET THE REAL EMBED:
-          1. Open Spotify in your browser
-          2. Find "Iris" by Goo Goo Dolls
-          3. Click the ··· menu → Share → Embed Track
-          4. Copy the src="..." URL they show you
-          5. Paste it below, replacing the URL in src=""
-        -->
-          <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6Qyc6fS4DsZjB2mRW9DsQs?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        </iframe>
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6Qyc6fS4DsZjB2mRW9DsQs?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
       </div>
 
       <div class="song-card">
@@ -304,12 +296,7 @@
             <p>The Ridleys</p>
           </div>
         </div>
-        <!--
-          Same steps! Search "Be With You The Ridleys" on Spotify,
-          get the embed link, paste it in src="" below.
-        -->
-        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5sGZetzV9JUZCn8WkfgDEf?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        </iframe>
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5sGZetzV9JUZCn8WkfgDEf?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
       </div>
 
     </div>
@@ -330,11 +317,12 @@
 
     <p style="margin-top:0.8rem;"> To my dearest, Kaiser, </p>
     <p style="margin-top:0.8rem;">
-Hi bebi, Happy 2nd Anniversary! I'm sorry if this is the only gift that I can give you today, bub, babawi ako. I'm always grateful that I have you during the times that I need someone to talk with, even when I don't say it. You're the greatest person who has ever entered my life, bub.<p>
+      Hi bebi, Happy 2nd Anniversary! I'm sorry if this is the only gift that I can give you today, bub, babawi ako. I'm always grateful that I have you during the times that I need someone to talk with, even when I don't say it. You're the greatest person who has ever entered my life, bub.
+    </p>
 
-<p style="margin-top:0.8rem;">I didn't expect that our relationship would last for 2 years, baby. For the past 2 years, I know that we've gone through many fights, and I hope that through these memories you can remember how fun our relationship has been.</p> 
+    <p style="margin-top:0.8rem;">I didn't expect that our relationship would last for 2 years, baby. For the past 2 years, I know that we've gone through many fights, and I hope that through these memories you can remember how fun our relationship has been.</p>
 
-<p style="margin-top:0.8rem;">Thank you for being my person, for every laugh that made my stomach hurt, every hand-hold that felt like home, every kiss that soothes me, every hug that anchors me, and every quiet moment that said more than words ever could. I love you always, in all ways, baby.</p>
+    <p style="margin-top:0.8rem;">Thank you for being my person, for every laugh that made my stomach hurt, every hand-hold that felt like home, every kiss that soothes me, every hug that anchors me, and every quiet moment that said more than words ever could. I love you always, in all ways, baby.</p>
     <p style="margin-top:0.8rem;">Here's to two years down, and a whole lifetime of memories left to make. 🌸</p>
     <span class="sig">With all my love, Sammie♡</span>
   </div>
@@ -344,16 +332,51 @@ Hi bebi, Happy 2nd Anniversary! I'm sorry if this is the only gift that I can gi
 </div>
 
 <script>
+/* ── EXIF ORIENTATION FIX ── */
+function fixOrientation(img) {
+  try {
+    EXIF.getData(img, function() {
+      const orientation = EXIF.getTag(this, 'Orientation');
+      const transforms = {
+        2: 'scaleX(-1)',
+        3: 'rotate(180deg)',
+        4: 'scaleX(-1) rotate(180deg)',
+        5: 'scaleX(-1) rotate(90deg)',
+        6: 'rotate(90deg)',
+        7: 'scaleX(-1) rotate(270deg)',
+        8: 'rotate(270deg)'
+      };
+      if (transforms[orientation]) {
+        img.style.transform = transforms[orientation];
+        if (orientation === 6 || orientation === 8 || orientation === 5 || orientation === 7) {
+          const size = img.parentElement.offsetWidth;
+          img.style.width  = size + 'px';
+          img.style.height = size + 'px';
+          img.style.maxWidth = 'none';
+          img.style.position = 'absolute';
+          img.style.top  = '50%';
+          img.style.left = '50%';
+          img.style.transformOrigin = 'center center';
+          if (orientation === 6) img.style.transform = 'translate(-50%, -50%) rotate(90deg)';
+          if (orientation === 8) img.style.transform = 'translate(-50%, -50%) rotate(270deg)';
+          if (orientation === 5) img.style.transform = 'translate(-50%, -50%) scaleX(-1) rotate(90deg)';
+          if (orientation === 7) img.style.transform = 'translate(-50%, -50%) scaleX(-1) rotate(270deg)';
+        }
+      }
+    });
+  } catch(e) {}
+}
+
 /* ── CAPTIONS ── */
 const captions = [
   "Our first walking",   "Field Trip with you",  "Laboratory activities",
-  "Sulky bebi",  "Cutie kulitan",    "First Intrams with you",
-  "PSP 2024", "Batch Party",     "One of our first selfies",
-  "Shy lovie",     "Random selfie",    "Food trip with you",
-  "Random CODM 🎮", "You resting your head on my shoulder",       "First Gala",
-  "Cutie selfie",   "Constant Lambing",  "Random photo",
-  "PSP 2025",  "Silly picture",  "My Valentine",
-  "Prom",    "with",   "You💗"
+  "Sulky bebi",          "Cutie kulitan",         "First Intrams with you",
+  "PSP 2024",            "Batch Party",           "One of our first selfies",
+  "Shy lovie",           "Random selfie",         "Food trip with you",
+  "Random CODM 🎮",      "You resting your head on my shoulder", "First Gala",
+  "Cutie selfie",        "Constant Lambing",      "Random photo",
+  "PSP 2025",            "Silly picture",         "My Valentine",
+  "Prom",                "with",                  "You💗"
 ];
 
 /* ── 24 LOVE LETTERS ── */
@@ -425,7 +448,7 @@ const letters = [
   },
   {
     month: "Month 14 · July 2025", title: "The Second Chapter", emoji: "📖",
-    body: "Year two started softly, we chose to be with each other even during the times when we're not together. I think that quiet, daily choosing is the most romantic thing in the entire world.",
+    body: "Year two started softly. we chose to be with each other even during the times when we're not together. I think that quiet, daily choosing is the most romantic thing in the entire world.",
     sig: "Choosing you, always ♡"
   },
   {
@@ -489,34 +512,33 @@ for (let i = 1; i <= 24; i++) {
   p.setAttribute('role', 'button');
   p.setAttribute('aria-label', `Open letter for memory ${i}`);
   p.innerHTML = `
-      <div class="photo-wrap">
-        <img class="memory-photo" 
-             src="./picture${i}.JPG" 
-             alt="Memory ${i}"
-             loading="eager"
-             onerror="
-               const img = this;
-               if (!img.dataset.tried) {
-                 img.dataset.tried = '1';
-                 img.src = './picture${i}.jpg';
-               } else if (img.dataset.tried === '1') {
-                 img.dataset.tried = '2';
-                 img.src = './picture${i}.jpeg';
-               } else {
-                 img.style.display = 'none';
-                 img.nextElementSibling.style.display = 'flex';
-               }
-             ">
-        
-        <div class="photo-placeholder">
-          <span>📷</span>
-          <p>picture${i}.JPG</p>
-        </div>
-
-        <span class="photo-num">${String(i).padStart(2,'0')}</span>
+    <div class="photo-wrap">
+      <img class="memory-photo"
+           src="./picture${i}.JPG"
+           alt="Memory ${i}"
+           loading="eager"
+           onload="fixOrientation(this)"
+           onerror="
+             const img = this;
+             if (!img.dataset.tried) {
+               img.dataset.tried = '1';
+               img.src = './picture${i}.jpg';
+             } else if (img.dataset.tried === '1') {
+               img.dataset.tried = '2';
+               img.src = './picture${i}.jpeg';
+             } else {
+               img.style.display = 'none';
+               img.nextElementSibling.style.display = 'flex';
+             }
+           ">
+      <div class="photo-placeholder">
+        <span>📷</span>
+        <p>picture${i}.JPG</p>
       </div>
-      <p class="caption">${captions[i-1]}</p>
-    `;
+      <span class="photo-num">${String(i).padStart(2,'0')}</span>
+    </div>
+    <p class="caption">${captions[i-1]}</p>
+  `;
   const idx = i - 1;
   p.addEventListener('click', () => openModal(idx));
   p.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') openModal(idx); });
