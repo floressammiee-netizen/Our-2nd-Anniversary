@@ -491,18 +491,19 @@ for (let i = 1; i <= 24; i++) {
   p.innerHTML = `
       <div class="photo-wrap">
         <img class="memory-photo" 
-     src="./picture${i}.JPG" 
-     alt="Memory ${i}"
-     onerror="if(this.src.includes('.JPG')){this.src='./picture${i}.JPEG'}else if(this.src.includes('.JPEG')){this.src='./picture${i}.jpg'}else{this.style.display='none';this.nextElementSibling.style.display='flex';}">
-      <div class="photo-placeholder">
-        <span>📷</span><p>picture${i}.JPG</p>
+             src="./picture${i}.JPG" 
+             alt="Memory ${i}"
+             onerror="if(this.src.includes('.JPG')){this.src='./picture${i}.JPEG'}else if(this.src.includes('.JPEG')){this.src='./picture${i}.jpg'}else{this.style.display='none';this.nextElementSibling.style.display='flex';}">
+        
+        <div class="photo-placeholder">
+          <span>📷</span>
+          <p>picture${i}.JPG</p>
+        </div>
+
+        <span class="photo-num">${String(i).padStart(2,'0')}</span>
       </div>
-        <span>📷</span><p>picture${i}.JPG</p>
-      </div>
-      <span class="photo-num">${String(i).padStart(2,'0')}</span>
-    </div>
-    <p class="caption">${captions[i-1]}</p>
-  `;
+      <p class="caption">${captions[i-1]}</p>
+    `;
   const idx = i - 1;
   p.addEventListener('click', () => openModal(idx));
   p.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') openModal(idx); });
